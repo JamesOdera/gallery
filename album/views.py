@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http  import HttpResponse,Http404
 import datetime as dt
 
@@ -6,18 +6,9 @@ import datetime as dt
 def welcome(request):
     return render(request, 'welcome.html')
 
-def album_of_day(request):
+def album_today(request):
     date = dt.date.today()
-
-    day = convert_dates(date)
-    html = f'''
-        <html>
-            <body>
-                <h1> Image for {day} {date.day}-{date.month}-{date.year}</h1>
-            </body>
-        </html>
-            '''
-    return HttpResponse(html)
+    return render(request, 'all-album/today-album.html', {"date": date})
 
 def convert_dates(dates):
 
@@ -32,19 +23,12 @@ def convert_dates(dates):
 
 def past_days_album(request,past_date):
     try:
-        # Converts data from the string Url
         date = dt.datetime.strptime(past_date,'%Y-%m-%d').date()
 
     except ValueError:
-        # Raise 404 error when ValueError is thrown
         raise Http404()
+        assert False
 
-    day = convert_dates(date)
-    html = f'''
-        <html>
-            <body>
-                <h1>Image for {day} {date.day}-{date.month}-{date.year}</h1>
-            </body>
-        </html>
-            '''
-    return HttpResponse(html)
+    if date == dt.date.today():
+        return redirect(album_today)
+    return render(request, 'all-album/past-album.html',{"date": date})

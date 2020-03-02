@@ -1,18 +1,55 @@
 {%extends 'all-album/base.html'%}
 {% block content %} 
 {{ block.super}}
-  {% for album_item in album %}
 
+{% for image_item in images %}
+<style>
+    .card {
+        text-align: center;
+        overflow: hidden;
+    }
+.column {
+  width: 50%;
+  padding: 10px;
+  margin-left: 300px;
+}
+
+.column img {
+  margin-top: 12px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
+<div class="container"></div>
+
+<div class="row">
+  <div class="column">
+      <h2 class="text-center"> {{ image_item.name }} </h2>
+      <img src="{{image_item.image.url}}" class="img-responsive" alt="Image" width="400" height="400">
+      <h2> {{ image_item.category }} </h2>
+        <h2> {{ image_item.location }} </h2>
+    </div>
+    <hr>
+    <hr>
+
+{% endfor %}
+
+  {% for album_item in album %}
+  
   <div class="container"></div>
 
   <div class="row">
 
-    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-      <h2 class="text-center"> {{ album_item.title }} </h2>
-    </div>
-
-    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-        <img src="{{album_item.article_image.url}}" class="img-responsive" alt="Image">
+    <div class="column">
+        <h2 class="text-center"> {{ album_item.title }} </h2>
+        <img src="{{album_item.article_image.url}}" class="img-responsive" alt="Image" width="400" height="400">
+        <h2> {{ album_item.category }} </h2>
+        <h2> {{ album_item.location }} </h2>
       </div>
 
   {% empty %}

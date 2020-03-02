@@ -21,7 +21,38 @@
 
     {% include "navbar.html" %}
 
-    {% block content %} <h1 class='text-center'>iMAGES for {{date|date:"l d-F Y"}}</h1> {%endblock%}
+    {% block content %}
+
+    <style>
+        .rightside {
+    float: right;
+      width: 70%;
+      padding-top: 40px;
+    }
+    .gallery {
+      background-color: rgb(255, 255, 255);
+      width: 60%;
+      padding: 20px;
+      margin-right: 20px;
+      height: 200px;
+      border-radius: 10px;
+      border: 1px solid lightgray;
+    }
+    </style>
+     <h1 class='text-center'>{{date|date:"l d-F Y"}}</h1> 
+     
+     
+    <div class="rightside">
+        <div class="card">
+            <div class="gallery">
+                <h1> Gallery </h1>
+                <h4> Welcome to my personal Gallery. </h4>
+                <h4> Its still in a process where </h4>
+                <h4> more images will be added and also the styling. </h4>
+            </div>
+          </div>
+    </div>
+     {%endblock%}
 
     {% block scripts %}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

@@ -1,0 +1,50 @@
+{%extends 'all-album/base.html'%} 
+{% block content %}
+
+<!-- <style>
+.bottom-right {
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+}
+.top-left {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+}
+</style> -->
+<div class="container">
+
+  <div class="row">
+    {% if articles%}
+      <h2>Found {{ articles|length }} of searched term {{message}}</h2>
+    {% else %}
+      <h2> Found 0 articles for the search term {{message}}</h2>
+    {% endif %}
+
+  </div>
+
+  <div class="row">
+
+  {% if articles %}
+    {% for article in articles %}
+
+    <div class="col-sm-3 col-md-3">
+        <h1>{{article.title}}</h1>
+    </div>
+      
+
+      <!-- <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+        <img src="{{article.article_image.url}}" class="img-responsive" alt="Image">
+        <div class="bottom-right"> -->
+            <h1 class="text-center" style="color: rgb(0, 242, 255);">{{article.location}}</h1>
+          </div>
+          <div class="top-left">
+            <h1 class="text-center" style="color: red;">{{article.category}}</h1>
+          </div>
+      </div>
+    {% endfor %}
+  {% endif %}
+  </div>
+</div>
+{% endblock %}

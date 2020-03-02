@@ -10,7 +10,8 @@ def welcome(request):
 def album_today(request):
     date = dt.date.today()
     album = Article.todays_album()
-    return render(request, 'all-album/today-album.html', {"date": date,"album":album})
+    images= Image.objects.all()
+    return render(request, 'all-album/today-album.html', {"date": date,"album":album,"images":images})
 
 def convert_dates(dates):
 

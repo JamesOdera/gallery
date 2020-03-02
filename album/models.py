@@ -55,3 +55,11 @@ class Article(models.Model):
     def search_by_title(cls,search_term):
         album = cls.objects.filter(title__icontains=search_term)
         return album
+
+class Image(models.Model):
+    image = models.ImageField(upload_to='image/', null=True)
+    name = models.CharField(max_length =20)
+    description = models.TextField()
+    pub_date = models.DateTimeField(auto_now_add=True)
+    category = models.ForeignKey(Category)
+    location = models.ForeignKey(Location, null=True)

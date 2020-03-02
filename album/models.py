@@ -1,4 +1,5 @@
 from django.db import models
+import datetime as dt
 
 class Editor(models.Model):
     first_name = models.CharField(max_length =30)
@@ -37,3 +38,14 @@ class Article(models.Model):
     category = models.ForeignKey(Category, null=True)
     location = models.ForeignKey(Location, null=True)
     pub_date = models.DateTimeField(auto_now_add=True)
+
+    @classmethod
+    def todays_album(cls):
+        today = dt.date.today()
+        album = cls.objects.filter(pub_date__date = today)
+        return album
+
+    @classmethod
+    def days_album(cls,date):
+        album = cls.objects.filter(pub_date__date = date)
+        return album

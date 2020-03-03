@@ -11,6 +11,8 @@ it's still in the development process as it will be updated with more features.
 -python django
 -html css
 
+[![codebeat badge](https://codebeat.co/badges/c9c1841e-f620-4caa-8b8a-ba3ffa323778)](https://codebeat.co/projects/github-com-jamesodera-gallery-master)
+
 MIT License
 
 Copyright (c) James Odera

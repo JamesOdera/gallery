@@ -1,0 +1,182 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load cloudinary %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% block content %}
+    {{block.super}}
+    <section id="hero1">
+        <div class="hero1 container1">
+            <div class="header__left">
+                <h1>If you can't make it good, at least make it look good.</h1>
+                <form class="header__input" action="{% url 'gallery' %}">
+                    <i class="fas fa-search"></i>
+                    <input type="search" placeholder="Search for Images" name="q" />
+                </form>
+            </div>
+        </div>
+    </section>
+    <section class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-header">
+                        Categories
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <a href="{% url 'gallery' %}">
+                            <li class="list-group-item">
+                            All
+                            </li>
+                        </a>
+                        {% for category in categories %}
+                            <a href="{% url 'gallery' %}?category={{ category.name }}">
+                                <li class="list-group-item">{{ category.name }}</li>
+                            </a>
+                        {% endfor %}
+                        <!-- <li class="list-group-item">
+                            <a href="" class="btn btn-dark btn-block btn-sm">Add Image</a>
+                        </li> -->
+                    </ul>
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="row justify-content-center">
+                    {% for image in images %}
+                    <div class="col-6 ">
+                        <img src="{{image.image.url}}" class="img-fluid img-thumbnail img-responsive" alt="image" height="300px"
+                            width="600px" padding-top="3px" data-toggle="modal" data-target="#{{image.title}}{{image.id}}"><br>
+                    </div>
+                    <br>
+                    <div class="modal fade" id="{{image.title}}{{image.id}}" tabindex="-1" role="dialog" aria-labelledby="examplemodal"
+                        aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title text-center" id="modaltitle">{{image.title}}</h4><br>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <img src="{{image.image.url}}" alt="" width="100%" height="100%">
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="thumbnail">
+                                        <h5 class="text-center">Description:</h5>
+                                        <h6 class="text-center"> {{image.description}}</h6>
+                                    </div>
+                                    <div class="thumbnail">
+                                        <h5 class="text-center">Image Location:</h5>
+                                        <h6 class="text-center">{{image.location}}</h6>
+                                    </div>
+                                    <div class="thumbnail">
+                                        <h5 class="text-center">Image Category:</h5>
+                                        <h6 class="text-center">{{image.category}}</h6>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 btn">
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-outline-dark" onclick="copyLink(`{{image.image.url}}`)">Copy Image
+                                                    Link</button>
+                                            </div>
+                                            <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-6">
+                        <img src="{{image.image.url}}" data-toggle="modal" data-target="#{{image.title}}{{image.id}}"
+                            class="img-fluid rounded" alt="">
+                    
+                        <div class="modal fade" id="{{image.title}}{{image.id}}" tabindex="-1" role="dialog" aria-labelledby="examplemodal" aria-hidden="true" data-backdrop="false" >
+                    
+                            <form class="modal-content animate" role="document">
+                                <div class="imgcontainer">
+                                    <img src="{{image.image.url}}" alt="Avatar" class="avatar">
+                                </div>
+                    
+                                <div class="container2">
+                                    <div class="imgtxt">
+                                        <div class="imgtxt__txt">
+                                            <h3>Title</h3>
+                                            <h6>{{image.title}}</h6>
+                                        </div>
+                                        <div class="imgtxt__txt">
+                                            <h3>Location</h3>
+                                            <h6>{{image.location}}</h6>
+                                        </div>
+                                        <div class="imgtxt__txt">
+                                            <h3>Category</h3>
+                                            <h6>{{image.category}}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                    
+                                <div class="container2 btns">
+                                    <button data-dismiss="modal fade" 
+                                    class="btn btn-outline-dark">Close</button>
+                                    <button type="button" class="btn btn-outline-dark">Copy Link</button>
+                                </div>
+                            </form>
+                        </div>
+                    
+                    </div> -->
+                    <!-- <div class="col-6">
+                        <img src="{{image.image.url}}" onclick="document.getElementById('id01').style.display='block'"
+                            class="img-fluid rounded" alt="">
+    
+                        <div id="id01"  class="modal">
+    
+                            <form class="modal-content animate" action="/action_page.php" method="post">
+                                <div class="imgcontainer">
+                                    <span onclick="document.getElementById('id01').style.display='none'" class="close"
+                                        title="Close Modal">&times;</span>
+                                    <img src="{{image.image.url}}" alt="Avatar" class="avatar">
+                                </div>
+    
+                                <div class="container2">
+                                    <div class="imgtxt">
+                                        <div class="imgtxt__txt">
+                                            <h3>Title</h3>
+                                            <h6>{{image.title}}</h6>
+                                        </div>
+                                        <div class="imgtxt__txt">
+                                            <h3>Location</h3>
+                                            <h6>{{image.location}}</h6>
+                                        </div>
+                                        <div class="imgtxt__txt">
+                                            <h3>Category</h3>
+                                            <h6>{{image.category}}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <div class="container2 btns">
+                                    <button type="button" onclick="document.getElementById('id01').style.display='none'"
+                                        class="btn btn-outline-dark">Close</button>
+                                    <button type="button" class="btn btn-outline-dark">Copy Link</button>
+                                </div>
+                            </form>
+                        </div>
+    
+                    </div> -->
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </section>
+    {% endblock %}
+</body>
+
+</html>

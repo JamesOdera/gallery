@@ -1,0 +1,29 @@
+{% extends 'app/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+    {{block.super}}
+    <section id="hero">
+        <div class="hero container">
+            <div class="header__left">
+                <h1>You don't take a photograph, you make it.</h1>
+                <form class="header__input" action="{% url 'gallery' %}">
+                    <i class="fas fa-search"></i>
+                    <input type="search" placeholder="Search for Images  by Title" name="q" />
+                </form>
+                <a href="{% url 'gallery' %}" type="button" class="cta">
+                    Go To Gallery
+                </a>
+            </div>
+        </div>
+    </section>
+    {% endblock %}
+</body>
+</html>
